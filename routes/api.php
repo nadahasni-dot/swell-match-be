@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\BoardTypeController;
 use App\Http\Controllers\CountryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,4 +27,5 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::resource('/country', CountryController::class)->except(['create', 'edit']);
+    Route::resource('/boardtype', BoardTypeController::class)->except(['create', 'edit']);
 });

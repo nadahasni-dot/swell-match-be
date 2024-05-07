@@ -80,7 +80,7 @@ class CountryController extends Controller
 
         return response()->json([
             'message' => 'success delete country',
-            'data' => $country,
+            'data' => null,
         ]);
     }
 }

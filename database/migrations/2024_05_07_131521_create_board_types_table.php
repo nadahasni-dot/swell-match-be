@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('board_types', function (Blueprint $table) {
             $table->id();
-            $table->string("board_name");
+            $table->string("board_name", 50);
             $table->timestamps();
         });
     }
