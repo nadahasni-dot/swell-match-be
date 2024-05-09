@@ -5,15 +5,36 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Country\CreateCountryRequest;
 use App\Http\Requests\Country\UpdateCountryRequest;
 use App\Models\Country;
+use Illuminate\Http\Request;
 
 class CountryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $countries = Country::all();
+        $countries = Country::query();
+
+        if ($request->has('country_code')) {
+            $countries->where('country_code', '=', $request->input('country_code'));
+        }
+
+        if ($request->has('country_name')) {
+            $countries->where('country_name', '=', $request->input('country_name'));
+        }
+
+        if ($request->has('order') && $request->has('sort')) {
+            $sort = $request->input('sort');
+            $order = $request->input('order');
+
+            $countries->orderBy($sort, $order);
+        }
+
+        $page = (int) $request->input('page', 1);
+        $perPage = (int) $request->input('per_page', 10);
+        $countries = $countries->paginate($perPage, ['*'], 'page', $page);
+        $total = $countries->total();
 
         if ($countries->isEmpty()) {
             return response()->json([
@@ -24,7 +45,13 @@ class CountryController extends Controller
 
         return response()->json([
             'message' => 'success get all countries',
-            'data' => $countries,
+            'data' => $countries->items(),
+            'meta' => [
+                'page' => $page,
+                'perPage' => $perPage,
+                'total' => $total,
+                'total_page' => ceil($total / $perPage),
+            ]
         ]);
     }
 

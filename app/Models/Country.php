@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Country extends Model
 {
@@ -18,4 +19,12 @@ class Country extends Model
         'country_code',
         'country_name',
     ];
+
+    /** 
+     * Get the booking that owns the country
+     */
+    public function bookings(): BelongsToMany
+    {
+        return $this->belongsToMany(Country::class);
+    }
 }

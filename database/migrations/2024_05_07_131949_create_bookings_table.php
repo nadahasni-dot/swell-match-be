@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('name', 100);
             $table->string('email', 100);
             $table->string('whatsapp', 16);
-            $table->string('surfing_experience', 2);
+            $table->integer('surfing_experience');
             $table->date('visit_date');
             $table->string('id_card', 255);
             $table->timestamps();
