@@ -104,6 +104,7 @@ class BookingController extends Controller
         ];
 
         $booking = Booking::create($newBooking);
+        $booking = Booking::with(['country', 'boardType'])->where('id', '=', $booking->id)->first();
 
         return response()->json([
             'message' => 'success create new booking',
