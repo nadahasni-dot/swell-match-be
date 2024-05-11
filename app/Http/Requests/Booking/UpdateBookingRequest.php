@@ -29,7 +29,7 @@ class UpdateBookingRequest extends FormRequest
             'whatsapp' => 'required|max:16',
             'surfing_experience' => 'required|numeric|min:0|max:10',
             'visit_date' => 'required|date',
-            'id_card' => 'file|mimes:pdf,jpg,jpeg,png|max:1024',
+            'id_card' => 'file|mimes:pdf,jpg,jpeg,png|max:2048',
         ];
     }
 }
